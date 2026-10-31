@@ -1,0 +1,37 @@
+erDiagram
+    USERS ||--o{ WALLETS : "memiliki"
+    USERS ||--o{ CATEGORIES : "memiliki"
+    USERS ||--o{ TRANSACTIONS : "mencatat"
+    WALLETS ||--o{ TRANSACTIONS : "sumber/tujuan dana"
+    CATEGORIES ||--o{ TRANSACTIONS : "mengklasifikasi"
+
+    USERS {
+        bigint id PK
+        varchar name
+        varchar email UK
+        varchar password
+        enum role "admin|user"
+        timestamp created_at
+    }
+    WALLETS {
+        bigint id PK
+        bigint user_id FK
+        varchar name
+        decimal initial_balance
+    }
+    CATEGORIES {
+        bigint id PK
+        bigint user_id FK
+        varchar name
+        enum type "income|expense"
+    }
+    TRANSACTIONS {
+        bigint id PK
+        bigint user_id FK
+        bigint wallet_id FK
+        bigint category_id FK
+        enum type "income|expense"
+        decimal amount
+        varchar description
+        date transaction_date
+    }

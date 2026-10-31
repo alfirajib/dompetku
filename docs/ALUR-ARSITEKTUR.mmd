@@ -1,0 +1,9 @@
+flowchart LR
+    B[Browser] -->|HTTP Request| R[routes/web.php]
+    R --> M1[Middleware: guest / auth / role / throttle / CSRF]
+    M1 --> C[Controller]
+    C -->|validate + sanitasi| C
+    C --> MD[Model Eloquent]
+    MD <-->|Parameterized Query| DB[(MySQL)]
+    C --> V[View Blade]
+    V -->|HTML ter-escape| B
